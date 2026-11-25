@@ -1,0 +1,125 @@
+# Pipeline for the aws repo
+# - MR pipelines:   fmt + validate for every stack, plan for each stack that changed
+# - main pipelines: the same, then a manual "apply" per changed stack
+# The bootstrap stack is never planned or applied here: it manages the CI
+# users' own permissions, so it is applied from a PC only.
+#
+# CI/CD variables (Settings > CI/CD > Variables), all masked:
+#   AWS_PLAN_ACCESS_KEY_ID, AWS_PLAN_SECRET_ACCESS_KEY    gitlab-ci-aws-plan, NOT protected (MRs need them)
+#   AWS_APPLY_ACCESS_KEY_ID, AWS_APPLY_SECRET_ACCESS_KEY  gitlab-ci-aws-apply, protected (main only)
+
+include:
+  - project: homelab/ci-templates
+    ref: main
+    file: security.yml
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+stages:
+  - validate
+  - plan
+  - apply
+
+variables:
+  TF_VERSION: "1.14.3"            # match `terraform version` on Windows (same or newer)
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+  AWS_DEFAULT_REGION: eu-central-1
+
+.terraform:
+  image:
+    name: hashicorp/terraform:${TF_VERSION}
+    entrypoint: [""]
+
+# --- every stack ------------------------------------------------------------
+
+fmt:
+  extends: .terraform
+  stage: validate
+  script:
+    - terraform fmt -check -recursive -diff
+
+validate:
+  extends: .terraform
+  stage: validate
+  script:
+    - |
+      for stack in bootstrap backup; do
+        echo "=== $stack"
+        (cd "$stack" && terraform init -backend=false && terraform validate)
+      done
+
+# Terraform misconfiguration scan (report only; accepted findings in .trivyignore.yaml)
+trivy-config:
+  extends: .trivy-config
+
+# --- per stack --------------------------------------------------------------
+
+.plan:
+  extends: .terraform
+  stage: plan
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_PLAN_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $AWS_PLAN_SECRET_ACCESS_KEY
+  script:
+    - cd "$STACK"
+    - terraform init
+    # -lock=false: plans (including Renovate's) never hold the state lock,
+    # and the read-only user couldn't write the lock file anyway
+    - terraform plan -lock=false -out=plan.cache
+    - apk add --no-cache jq
+    - >
+      terraform show -json plan.cache |
+      jq -r '([.resource_changes[]?.change.actions?] | flatten)
+      | {"create": (map(select(. == "create")) | length),
+         "update": (map(select(. == "update")) | length),
+         "delete": (map(select(. == "delete")) | length)}'
+      > plan.json
+  artifacts:
+    name: plan-$STACK
+    paths:
+      - $STACK/plan.cache
+    reports:
+      terraform: $STACK/plan.json
+    expire_in: 1 week
+
+.apply:
+  extends: .terraform
+  stage: apply
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_APPLY_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $AWS_APPLY_SECRET_ACCESS_KEY
+  script:
+    - cd "$STACK"
+    - terraform init
+    - terraform apply -input=false plan.cache
+  resource_group: aws-$STACK
+  environment:
+    name: aws/$STACK
+
+# backup stack
+
+plan:backup:
+  extends: .plan
+  variables:
+    STACK: backup
+  rules:
+    - changes:
+        - backup/**/*
+        - .gitlab-ci.yml
+
+apply:backup:
+  extends: .apply
+  variables:
+    STACK: backup
+  needs:
+    - plan:backup
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - backup/**/*
+        - .gitlab-ci.yml
+      when: manual

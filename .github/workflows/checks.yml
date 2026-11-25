@@ -1,0 +1,56 @@
+# Checks for the public copy of this repo: the same as the GitLab pipeline,
+# minus plan and apply (no AWS access from here).
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  TF_VERSION: "1.14.3"
+  TRIVY_VERSION: "0.76.1"
+
+jobs:
+  # Terraform from its official image, as in GitLab CI
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - run: >
+          docker run --rm -v "$PWD:/repo" -w /repo
+          hashicorp/terraform:$TF_VERSION fmt -check -recursive -diff
+
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stack: [bootstrap, backup]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: validate ${{ matrix.stack }}
+        run: >
+          docker run --rm -v "$PWD:/repo" -w "/repo/${{ matrix.stack }}"
+          --entrypoint sh hashicorp/terraform:$TF_VERSION
+          -c "terraform init -backend=false -input=false && terraform validate"
+
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      # The pinned image instead of a third-party action
+      - name: misconfiguration scan
+        run: >
+          docker run --rm -v "$PWD:/repo" -w /repo aquasec/trivy:$TRIVY_VERSION
+          config --severity HIGH,CRITICAL --ignorefile .trivyignore.yaml
+          --exit-code 1 .

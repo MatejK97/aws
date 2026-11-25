@@ -1,0 +1,5 @@
+# Copy to terraform.tfvars (ignored by Git) and fill in
+budget_email = "you@example.com"
+
+# Set to true only if `aws ce get-anomaly-monitors` shows no SERVICE monitor yet
+create_cost_anomaly_monitor = false

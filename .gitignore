@@ -1,0 +1,12 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+# Saved plans hold every planned value: never commit them
+tfplan
+*.tfplan
+plan.cache
+plan.json
+crash.log
+# Personal values (e.g. the budget email); see terraform.tfvars.example
+*.tfvars
+!*.tfvars.example

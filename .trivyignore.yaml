@@ -1,0 +1,17 @@
+# Accepted Trivy findings, each with the reason.
+misconfigurations:
+  - id: AWS-0132
+    paths:
+      - "backup/bucket.tf"
+    statement: >-
+      SSE-S3 instead of a customer-managed KMS key. restic encrypts all data on
+      the home VM before upload, with a key AWS never sees, so SSE-KMS would
+      only encrypt ciphertext again, for $1/month per key plus request fees.
+  - id: AWS-0132
+    paths:
+      - "bootstrap/state.tf"
+    statement: >-
+      SSE-S3 instead of a customer-managed KMS key. Access to the state bucket
+      is limited by IAM, HTTPS-only and versioned; a KMS key ($1/month plus
+      request fees) would cost more than the rest of the account for no real
+      gain at this scale. Revisit if state ever holds secrets.
