@@ -1,7 +1,7 @@
 # aws
 
 My AWS account, managed with Terraform: an off-site copy of the homelab's
-backups today, and the CV website at `matthomelab.xyz` next. Built to stay
+backups, and my CV website at [matthomelab.xyz](https://matthomelab.xyz). Built to stay
 inside a $5 monthly budget, with cost and access guardrails built in.
 
 > A published snapshot of a repository that runs on my self-hosted GitLab.
@@ -10,6 +10,8 @@ inside a $5 monthly budget, with cost and access guardrails built in.
 ```
 bootstrap/   state bucket, budget and cost alerts, permissions boundary, CI users
 backup/      off-site copy of the restic backups: bucket + IAM user for the home VM
+website/     the CV site: S3, CloudFront, ACM, WAF, Cloudflare DNS
+site/        the site's files, deployed by CI
 ```
 
 Each folder is its own Terraform root with its own state file, so a change in
@@ -52,6 +54,36 @@ leaves the house.
   secrets file, Kubernetes Secrets, SQLite databases).
 - healthchecks.io alerts if the nightly copy fails or doesn't run.
 
+## CV website
+
+A static page in a private S3 bucket, served by CloudFront on the
+**flat-rate Free plan**: $0 a month, with no overage charges however much
+traffic arrives.
+
+- **Origin Access Control:** only the distribution can read the bucket, so
+  nothing gets around the cache and the WAF by going to S3 directly.
+- **AWS WAF** (required by the plan): AWS's IP reputation list, common rule set
+  and known-bad-inputs rules, plus a per-IP rate limit. Blocked requests don't
+  count toward the plan's allowance. The first night online, 770 requests
+  arrived, almost all from scanners that found the domain in the Certificate
+  Transparency logs; 479 were blocked.
+- **Certificate** from ACM in `us-east-1` (a second provider alias), validated
+  through Cloudflare DNS by the Cloudflare provider. The records are DNS only,
+  so CloudFront terminates TLS; the rest of the zone stays untouched.
+- A **CloudFront Function** redirects `www` to the bare domain. AWS-managed
+  cache and security-header policies only, because the Free plan doesn't
+  allow custom ones.
+- **The page:** self-hosted fonts and a Content-Security-Policy that allows only
+  the site's own files, so it makes no third-party requests. `robots.txt` asks
+  AI training crawlers to stay out.
+- **Deploys:** a change under `site/` on `main` is synced to S3 by CI, then
+  the CloudFront cache is invalidated.
+- Cloudflare API tokens follow the AWS split: read-only for plans, DNS edit on
+  this one zone for apply.
+
+The Terraform AWS provider can't subscribe a distribution to a flat-rate plan
+yet, so that was a one-time step in the console.
+
 ## Pipeline
 
 GitLab CI on my self-hosted GitLab:
@@ -62,7 +94,8 @@ GitLab CI on my self-hosted GitLab:
 - **Merge requests:** a plan for each stack that changed, with the summary
   (to add / change / destroy) shown in the MR.
 - **`main`:** the saved plan is applied through a **manual** step, one stack
-  at a time (`resource_group`).
+  at a time (`resource_group`). Site changes deploy by themselves, after the
+  apply when both change together.
 
 The public GitHub copy runs the same checks with GitHub Actions, without any
 AWS access.

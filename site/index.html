@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matej Kovačević · System Engineer, DevOps and Platform</title>
+<meta name="description" content="System Engineer moving into DevOps and cloud: a homelab run like production with Kubernetes, GitOps, CI/CD and Terraform on AWS.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<link rel="canonical" href="https://matthomelab.xyz/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Matej Kovačević · System Engineer, DevOps and Platform">
+<meta property="og:description" content="System Engineer moving into DevOps and cloud: a homelab run like production with Kubernetes, GitOps, CI/CD and Terraform on AWS.">
+<meta property="og:url" content="https://matthomelab.xyz/">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts.css">
+<style>
+body{margin:0;background:#0d1117}
+a{color:#e6edf3;text-decoration:none}
+a:hover{color:#ffffff}
+.tag{display:inline-block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;background:#161b22}
+.label{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:0.02em;color:#9aa6b2;margin:0}
+h1#hero-name{overflow-wrap:anywhere}
+@media (max-width:600px){h1#hero-name{font-size:40px!important}section[aria-labelledby=hero-name]{padding:48px 0 56px!important}}
+:focus-visible{outline:2px solid #3fb950;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<div style="background: #0d1117; color: #e6edf3; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh">
+
+<!-- Top bar -->
+<header style="border-bottom: 1px solid #21262d">
+<nav aria-label="Main" style="max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="#top" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500; color: #e6edf3">matthomelab<span style="color: #3fb950">.xyz</span></a>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 14.5px">
+<a href="#experience" style="color: #9aa6b2; padding: 10px 0">Experience</a>
+<a href="#projects" style="color: #9aa6b2; padding: 10px 0">Projects</a>
+<a href="#certifications" style="color: #9aa6b2; padding: 10px 0">Certifications</a>
+<a href="#skills" style="color: #9aa6b2; padding: 10px 0">Skills</a>
+</div>
+</nav>
+</header>
+
+<main id="top" style="max-width: 1080px; margin: 0 auto; padding: 0 24px">
+
+<!-- Hero -->
+<section aria-labelledby="hero-name" style="padding: 88px 0 72px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<p class="label" style="color: #3fb950">// Zagreb, Croatia</p>
+<h1 id="hero-name" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 56px; line-height: 1.05; font-weight: 700; letter-spacing: -0.02em">Matej Kovačević</h1>
+<p style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 24px; line-height: 1.35; font-weight: 500; color: #c9d1d9">System Engineer · DevOps &amp; Platform</p>
+<p style="margin: 0; max-width: 560px; font-size: 17.5px; color: #9aa6b2">Three years in Linux administration and complex infrastructure, now moving into DevOps and cloud. I run my homelab like production: Kubernetes deployed through GitOps, CI/CD with security scanning, metrics, logs and alerting, encrypted off-site backups, and the servers themselves configured with Ansible. Everything is in Git, and every change goes through a merge request.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px">
+<a href="https://github.com/MatejK97" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 8px; background: #3fb950; color: #0d1117; font-weight: 600; font-size: 15px">GitHub
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+<a href="https://www.linkedin.com/in/matej-kovacevic-dev/" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; color: #e6edf3; font-weight: 600; font-size: 15px">LinkedIn
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+</div>
+</div>
+
+<!-- Status card -->
+<div style="flex: 1 1 340px; min-width: 0; border: 1px solid #30363d; border-radius: 12px; background: #161b22; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #30363d">
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #30363d"></span>
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #30363d"></span>
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #30363d"></span>
+<span class="label" style="margin-left: 8px; font-size: 12.5px">status.yaml</span>
+</div>
+<dl style="margin: 0; padding: 20px 20px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 12px 16px">
+<dt style="color: #3fb950">role:</dt><dd style="margin: 0; color: #e6edf3">System Engineer @ Enlayer</dd>
+<dt style="color: #3fb950">focus:</dt><dd style="margin: 0; color: #e6edf3">DevOps, platform, SRE</dd>
+<dt style="color: #3fb950">studying:</dt><dd style="margin: 0; color: #e6edf3">CKA (Kubernetes)</dd>
+<dt style="color: #3fb950">latest:</dt><dd style="margin: 0; color: #e6edf3">AWS SAA, Nov 2026</dd>
+<dt style="color: #3fb950">open_to:</dt><dd style="margin: 0; color: #e6edf3">Zagreb or remote, EU</dd>
+</dl>
+</div>
+</section>
+
+<!-- Experience -->
+<section id="experience" aria-labelledby="exp-h" style="padding: 56px 0; border-top: 1px solid #21262d; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<p class="label">// experience</p>
+<h2 id="exp-h" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px; line-height: 1.2; font-weight: 600">Experience</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 8px 32px">
+<div style="flex: 1 1 200px; min-width: 0">
+<p class="label" style="color: #3fb950">2025 – now</p>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">System Engineer · Enlayer</h3>
+<p style="margin: 0; font-size: 14px; color: #9aa6b2">formerly Telelink Business Services</p>
+<ul style="margin: 0; padding-left: 20px; color: #c9d1d9; display: flex; flex-direction: column; gap: 6px">
+<li>Manage and maintain multiple VMware environments running Windows and Linux hosts with Cisco UCCE/UCCX services and in-house software.</li>
+<li>Automate internal workflows and tooling with Python; built a PowerShell tool that checks CPU, memory and disk across Windows server clusters for the team.</li>
+<li>Research and implement new features and infrastructure solutions.</li>
+</ul>
+</div>
+</article>
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 8px 32px">
+<div style="flex: 1 1 200px; min-width: 0">
+<p class="label">2024 – 2025</p>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">Data Migration Specialist · Touch Support</h3>
+<ul style="margin: 0; padding-left: 20px; color: #c9d1d9; display: flex; flex-direction: column; gap: 6px">
+<li>Migrated domains and services between environments as part of a dedicated migration team.</li>
+<li>Verified data integrity, accuracy and completeness after each migration, so no data was lost.</li>
+</ul>
+</div>
+</article>
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 8px 32px">
+<div style="flex: 1 1 200px; min-width: 0">
+<p class="label">2023 – 2024</p>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">Linux System Administrator · Touch Support</h3>
+<ul style="margin: 0; padding-left: 20px; color: #c9d1d9; display: flex; flex-direction: column; gap: 6px">
+<li>Managed Linux servers in a large-scale data center, from routine configuration to complex troubleshooting.</li>
+<li>Resolved web server issues across Apache and NGINX, including SSL/TLS, virtual hosts and performance problems.</li>
+<li>Troubleshot DNS and network connectivity across the server fleet; supported MySQL and MSSQL environments; managed backup infrastructure and verified backup integrity.</li>
+</ul>
+</div>
+</article>
+</div>
+</section>
+
+<!-- Projects -->
+<section id="projects" aria-labelledby="proj-h" style="padding: 56px 0; border-top: 1px solid #21262d; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<p class="label">// projects</p>
+<h2 id="proj-h" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px; line-height: 1.2; font-weight: 600">Projects</h2>
+<p style="margin: 0; max-width: 640px; color: #9aa6b2">All of it runs from my self-hosted GitLab; the repositories on GitHub are public snapshots, with secrets replaced by dummy values.</p>
+</div>
+
+<!-- Featured: homelab -->
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; line-height: 1.25; font-weight: 600">Homelab: a hybrid-cloud platform run like production</h3>
+<a href="https://github.com/MatejK97/homelab" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: #3fb950; font-weight: 600; font-size: 15px">Full write-up
+<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+</div>
+<p style="margin: 0; max-width: 760px; color: #c9d1d9">A cloud VPS and a home VM joined by WireGuard. GitLab, its runners, Renovate and Traefik run in Docker; applications and the observability stack run on k3s, deployed by ArgoCD.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<div style="border: 1px solid #30363d; border-radius: 10px; padding: 18px; background: #0d1117; display: flex; flex-direction: column; gap: 6px">
+<p class="label" style="color: #3fb950">gitops</p>
+<p style="margin: 0; font-size: 15px; color: #c9d1d9">ArgoCD app-of-apps with self-healing; secrets committed encrypted with SOPS and age.</p>
+</div>
+<div style="border: 1px solid #30363d; border-radius: 10px; padding: 18px; background: #0d1117; display: flex; flex-direction: column; gap: 6px">
+<p class="label" style="color: #3fb950">ci/cd</p>
+<p style="margin: 0; font-size: 15px; color: #c9d1d9">Shared GitLab CI templates; gitleaks and Trivy on every merge request; scoped deploy keys.</p>
+</div>
+<div style="border: 1px solid #30363d; border-radius: 10px; padding: 18px; background: #0d1117; display: flex; flex-direction: column; gap: 6px">
+<p class="label" style="color: #3fb950">observability</p>
+<p style="margin: 0; font-size: 15px; color: #c9d1d9">Prometheus, Grafana, Loki and Alloy; alert rules as code, email alerts and a dead man's switch.</p>
+</div>
+<div style="border: 1px solid #30363d; border-radius: 10px; padding: 18px; background: #0d1117; display: flex; flex-direction: column; gap: 6px">
+<p class="label" style="color: #3fb950">backups</p>
+<p style="margin: 0; font-size: 15px; color: #c9d1d9">Encrypted restic backups to append-only storage, plus an off-site copy in S3, restore-tested.</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span class="tag">k3s</span><span class="tag">ArgoCD</span><span class="tag">GitLab CI</span><span class="tag">WireGuard</span><span class="tag">Traefik</span><span class="tag">Prometheus</span><span class="tag">restic</span>
+</div>
+</article>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">AWS with Terraform</h3>
+<p style="margin: 0; flex-grow: 1; color: #c9d1d9">Remote state in S3 with native locking, budget alerts, and a permissions boundary for every IAM principal. The off-site backup bucket, and this website: S3 and CloudFront behind WAF, on a flat-rate plan so bot traffic can't raise the bill.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Terraform</span><span class="tag">S3</span><span class="tag">CloudFront</span><span class="tag">IAM</span></div>
+<a href="https://github.com/MatejK97/aws" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: #3fb950; font-weight: 600; font-size: 15px">MatejK97/aws
+<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+</article>
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">Ansible for both hosts</h3>
+<p style="margin: 0; flex-grow: 1; color: #c9d1d9">Hardening, WireGuard, Docker, k3s and backups as ten roles. Taken over from a hand-built setup with dry runs, reviewed line by line, and verified idempotent; linted in CI.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Ansible</span><span class="tag">Vault</span><span class="tag">ansible-lint</span></div>
+<a href="https://github.com/MatejK97/ansible" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: #3fb950; font-weight: 600; font-size: 15px">MatejK97/ansible
+<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+</article>
+<article style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<h3 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 600">CKA lab</h3>
+<span class="tag" style="color: #3fb950; border-color: #3fb950">in progress</span>
+</div>
+<p style="margin: 0; flex-grow: 1; color: #c9d1d9">A Kubernetes cluster built by hand with kubeadm, then broken on purpose: API server, kubelet, certificates, etcd. Every fix written down as a runbook.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">kubeadm</span><span class="tag">Calico</span><span class="tag">Gateway API</span></div>
+</article>
+</div>
+</section>
+
+<!-- Lessons -->
+<section aria-labelledby="lessons-h" style="padding: 56px 0; border-top: 1px solid #21262d; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<p class="label">// incidents.log</p>
+<h2 id="lessons-h" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px; line-height: 1.2; font-weight: 600">Things that broke, and what they taught me</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+<article style="border-top: 2px solid #3fb950; padding-top: 16px; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Docker publishes ports around the firewall</h3>
+<p style="margin: 0; font-size: 15px; color: #9aa6b2">Its iptables rules run before ufw, and Kubernetes NodePorts do the same. Admin services now bind only to the VPN address.</p>
+</article>
+<article style="border-top: 2px solid #3fb950; padding-top: 16px; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">A security update that hid a container</h3>
+<p style="margin: 0; font-size: 15px; color: #9aa6b2">An overnight libc update restarted containerd, and cAdvisor kept a stale socket. The alert fired, the logs pointed to the cause, and the mount was fixed for good.</p>
+</article>
+<article style="border-top: 2px solid #3fb950; padding-top: 16px; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Codifying a server is an audit</h3>
+<p style="margin: 0; font-size: 15px; color: #9aa6b2">The first Ansible dry run found drift I hadn't noticed, including a Docker repository silently disabled by an OS upgrade.</p>
+</article>
+</div>
+</section>
+
+<!-- Certifications -->
+<section id="certifications" aria-labelledby="cert-h" style="padding: 56px 0; border-top: 1px solid #21262d; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<p class="label">// certifications</p>
+<h2 id="cert-h" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px; line-height: 1.2; font-weight: 600">Certifications</h2>
+</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px">
+<li style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<p class="label" style="color: #3fb950">2026</p>
+<a href="https://www.credly.com/badges/99ed28a7-5058-4d3f-aad8-4e5db7ffb5ad/public_url" style="font-weight: 600; font-size: 17px; line-height: 1.35">AWS Certified Solutions Architect – Associate</a>
+<p style="margin: 0; font-size: 14px; color: #9aa6b2">Verified on Credly</p>
+</li>
+<li style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<p class="label" style="color: #3fb950">2024</p>
+<a href="https://www.credly.com/badges/961d38e7-ac95-4888-8016-b921b3c1dec1/public_url" style="font-weight: 600; font-size: 17px; line-height: 1.35">AWS Certified Cloud Practitioner</a>
+<p style="margin: 0; font-size: 14px; color: #9aa6b2">Verified on Credly</p>
+</li>
+<li style="border: 1px solid #30363d; border-radius: 12px; background: #161b22; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<p class="label" style="color: #3fb950">2025</p>
+<a href="https://www.credly.com/badges/af02df32-bbcf-48b7-a43a-b6c7eb931ec6/public_url" style="font-weight: 600; font-size: 17px; line-height: 1.35">LPIC-1 (Linux Professional Institute)</a>
+<p style="margin: 0; font-size: 14px; color: #9aa6b2">Verified on Credly</p>
+</li>
+<li style="border: 1px dashed #30363d; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<p class="label">next</p>
+<p style="margin: 0; font-weight: 600; font-size: 17px; line-height: 1.35">Certified Kubernetes Administrator (CKA)</p>
+<p style="margin: 0; font-size: 14px; color: #9aa6b2">Studying now</p>
+</li>
+</ul>
+</section>
+
+<!-- Skills -->
+<section id="skills" aria-labelledby="skills-h" style="padding: 56px 0 72px; border-top: 1px solid #21262d; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<p class="label">// skills</p>
+<h2 id="skills-h" style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px; line-height: 1.2; font-weight: 600">Skills</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px 32px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Cloud &amp; infrastructure as code</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Cloudflare</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Containers &amp; Kubernetes</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Kubernetes (k3s)</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">ArgoCD</span><span class="tag">SOPS</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">CI/CD &amp; security</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">GitLab CI</span><span class="tag">Renovate</span><span class="tag">gitleaks</span><span class="tag">Trivy</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Observability</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span><span class="tag">Alertmanager</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Systems &amp; networking</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">WireGuard</span><span class="tag">Traefik</span><span class="tag">BIND9</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Platforms &amp; databases</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">VMware</span><span class="tag">Apache</span><span class="tag">NGINX</span><span class="tag">MySQL</span><span class="tag">MSSQL</span><span class="tag">Cisco UCCE/UCCX</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #c9d1d9">Scripting</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="tag">Python</span><span class="tag">Bash</span><span class="tag">PowerShell</span></div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px 48px; padding-top: 8px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<p class="label">education</p>
+<p style="margin: 0; color: #c9d1d9">Web Developer · Edunova, Osijek · 2021</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<p class="label">languages</p>
+<p style="margin: 0; color: #c9d1d9">Croatian (native) · English (professional)</p>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer style="border-top: 1px solid #21262d">
+<div style="max-width: 1080px; margin: 0 auto; padding: 28px 24px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #9aa6b2">Built with Terraform on AWS: S3, CloudFront and WAF · <a href="https://github.com/MatejK97/aws" style="color: #9aa6b2; text-decoration: underline">source</a></p>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14.5px">
+<a href="https://github.com/MatejK97" style="color: #9aa6b2; padding: 10px 0">GitHub</a>
+<a href="https://www.linkedin.com/in/matej-kovacevic-dev/" style="color: #9aa6b2; padding: 10px 0">LinkedIn</a>
+</div>
+</div>
+</footer>
+</div>
+</body>
+</html>

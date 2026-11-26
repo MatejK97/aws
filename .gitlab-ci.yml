@@ -4,9 +4,13 @@
 # The bootstrap stack is never planned or applied here: it manages the CI
 # users' own permissions, so it is applied from a PC only.
 #
+# - site/ changes on main: synced to S3 and the CloudFront cache invalidated
+#
 # CI/CD variables (Settings > CI/CD > Variables), all masked:
 #   AWS_PLAN_ACCESS_KEY_ID, AWS_PLAN_SECRET_ACCESS_KEY    gitlab-ci-aws-plan, NOT protected (MRs need them)
 #   AWS_APPLY_ACCESS_KEY_ID, AWS_APPLY_SECRET_ACCESS_KEY  gitlab-ci-aws-apply, protected (main only)
+#   CLOUDFLARE_PLAN_API_TOKEN    Zone:Read + DNS:Read on matthomelab.xyz, NOT protected
+#   CLOUDFLARE_APPLY_API_TOKEN   Zone:Read + DNS:Edit on matthomelab.xyz, protected
 
 include:
   - project: homelab/ci-templates
@@ -22,6 +26,7 @@ stages:
   - validate
   - plan
   - apply
+  - deploy
 
 variables:
   TF_VERSION: "1.14.3"            # match `terraform version` on Windows (same or newer)
@@ -47,7 +52,7 @@ validate:
   stage: validate
   script:
     - |
-      for stack in bootstrap backup; do
+      for stack in bootstrap backup website; do
         echo "=== $stack"
         (cd "$stack" && terraform init -backend=false && terraform validate)
       done
@@ -123,3 +128,66 @@ apply:backup:
         - backup/**/*
         - .gitlab-ci.yml
       when: manual
+
+# website stack
+
+plan:website:
+  extends: .plan
+  variables:
+    STACK: website
+    CLOUDFLARE_API_TOKEN: $CLOUDFLARE_PLAN_API_TOKEN
+  rules:
+    - changes:
+        - website/**/*
+        - .gitlab-ci.yml
+
+apply:website:
+  extends: .apply
+  variables:
+    STACK: website
+    CLOUDFLARE_API_TOKEN: $CLOUDFLARE_APPLY_API_TOKEN
+  needs:
+    - plan:website
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - website/**/*
+        - .gitlab-ci.yml
+      when: manual
+
+# --- site content -----------------------------------------------------------
+
+# Runs by itself for content changes. When the same push also changes the
+# stack, it waits for the manual apply first.
+deploy:site:
+  stage: deploy
+  image:
+    name: amazon/aws-cli:2.31.0
+    entrypoint: [""]
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_APPLY_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $AWS_APPLY_SECRET_ACCESS_KEY
+    SITE_BUCKET: matthomelab-website
+    SITE_DOMAIN: matthomelab.xyz
+  needs:
+    - job: apply:website
+      optional: true
+  script:
+    # Pages: short cache, so a change shows up within minutes even without
+    # the invalidation. Fonts never change: cached for a year.
+    - aws s3 sync site/ "s3://$SITE_BUCKET/" --delete --exclude "fonts/*"
+      --cache-control "public, max-age=300"
+    - aws s3 sync site/fonts/ "s3://$SITE_BUCKET/fonts/" --delete
+      --content-type font/woff2 --cache-control "public, max-age=31536000, immutable"
+    - DIST_ID=$(aws cloudfront list-distributions --output text
+      --query "DistributionList.Items[?Aliases.Items && contains(Aliases.Items, '$SITE_DOMAIN')].Id | [0]")
+    - test -n "$DIST_ID" && test "$DIST_ID" != "None"
+    - aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+  resource_group: site-deploy
+  environment:
+    name: website
+    url: https://matthomelab.xyz
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - site/**/*

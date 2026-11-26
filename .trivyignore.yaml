@@ -15,3 +15,10 @@ misconfigurations:
       is limited by IAM, HTTPS-only and versioned; a KMS key ($1/month plus
       request fees) would cost more than the rest of the account for no real
       gain at this scale. Revisit if state ever holds secrets.
+  - id: AWS-0132
+    paths:
+      - "website/bucket.tf"
+    statement: >-
+      SSE-S3 instead of a customer-managed KMS key. The bucket holds the public
+      website, which anyone can read through CloudFront anyway; a KMS key
+      would add $1/month plus request fees and protect nothing.
