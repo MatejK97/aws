@@ -87,6 +87,9 @@ trivy-config:
     name: plan-$STACK
     paths:
       - $STACK/plan.cache
+      # Build outputs the plan refers to (the counter's zip); apply runs in a
+      # fresh checkout, so it needs the same file the plan hashed
+      - $STACK/.build/
     reports:
       terraform: $STACK/plan.json
     expire_in: 1 week

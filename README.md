@@ -10,7 +10,7 @@ inside a $5 monthly budget, with cost and access guardrails built in.
 ```
 bootstrap/   state bucket, budget and cost alerts, permissions boundary, CI users
 backup/      off-site copy of the restic backups: bucket + IAM user for the home VM
-website/     the CV site: S3, CloudFront, ACM, WAF, Cloudflare DNS
+website/     the CV site: S3, CloudFront, ACM, WAF, Cloudflare DNS, visitor counter
 site/        the site's files, deployed by CI
 ```
 
@@ -80,6 +80,26 @@ traffic arrives.
   the CloudFront cache is invalidated.
 - Cloudflare API tokens follow the AWS split: read-only for plans, DNS edit on
   this one zone for apply.
+
+### Visitor counter
+
+`/api/*` on the same distribution goes to a Lambda function URL, and the
+function counts visits in DynamoDB. There is no public API endpoint:
+
+- The function URL requires IAM auth, and only this distribution may call it
+  (Origin Access Control; CloudFront needs both `lambda:InvokeFunctionUrl` and
+  `lambda:InvokeFunction`). A direct call returns 403. No API Gateway, so no
+  per-request API fees.
+- The table is provisioned at 1 read and 1 write per second: inside the
+  always-free tier, and a flood is throttled rather than billed.
+- The Lambda's role lives under `/homelab/` with the permissions boundary and
+  can only update and read that one item, and write its own logs (kept 14
+  days).
+- The page counts each browser once per day (`localStorage`), so scrapers
+  that don't run JavaScript never touch the API. Same origin, so no CORS.
+- The plan's per-IP rate limit covers the API too. A stricter limit for
+  `/api/*` alone would need a WAF scope-down statement, which the Free plan
+  rejects.
 
 The Terraform AWS provider can't subscribe a distribution to a flat-rate plan
 yet, so that was a one-time step in the console.

@@ -1,6 +1,9 @@
 # WAF web ACL, required by the CloudFront flat-rate plan (the Free plan
-# includes 5 rules). Requests it blocks don't count toward the plan's
-# allowance, and the plan has no overage charges either way.
+# includes 5 rules). A stricter limit just for /api/* would need a scope-down
+# statement, which the Free plan rejects (WAFFeatureNotIncludedInPricingPlan);
+# the counter relies on the site-wide limit and DynamoDB's throttling instead.
+# Requests the WAF blocks don't count toward the plan's allowance, and the plan
+# has no overage charges either way.
 resource "aws_wafv2_web_acl" "site" {
   provider = aws.us_east_1
 
@@ -81,8 +84,7 @@ resource "aws_wafv2_web_acl" "site" {
     }
   }
 
-  # A person reading a one-page site never gets near this; a scraper does.
-  # The fifth rule is kept free for a stricter limit on /api/* (visitor counter).
+  # A person reading a one-page site never gets near this; a scraper does
   rule {
     name     = "rate-limit-per-ip"
     priority = 10

@@ -21,3 +21,9 @@ variable "rate_limit" {
   type        = number
   default     = 300
 }
+
+variable "counter_reserved_concurrency" {
+  description = "Reserved concurrency for the counter Lambda; -1 for none (needs room in the account's quota)"
+  type        = number
+  default     = -1
+}
